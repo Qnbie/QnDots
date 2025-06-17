@@ -1,0 +1,115 @@
+add_newline = true
+continuation_prompt = "[=>](dimmed white)"
+
+
+format = """
+[┌──](bold green) $battery$username$hostname$docker_context$git_branch$git_status
+[└|$directory>](bold green) """
+
+
+right_format = """
+$cmd_duration$status\
+$c\
+$cpp\
+$cmake\
+$dotnet\
+$golang\
+$lua\
+$nodejs\
+$python\
+$rust"""
+
+[docker_context]
+format = "[ $context](blue) "
+only_with_files = false
+
+[git_branch]
+symbol = " "
+truncation_length = 50
+truncation_symbol = "…"
+style = "purple" 
+
+[git_status]
+style = "bold italic bright-blue"
+format = "([⎪$ahead_behind$staged$modified$untracked$renamed$deleted$conflicted$stashed⎥]($style))"
+conflicted = "[◪◦](italic bright-magenta)"
+ahead = "[▴│[${count}](bold white)│](italic green)"
+behind = "[▿│[${count}](bold white)│](italic red)"
+diverged = "[◇ ▴┤[${ahead_count}](regular white)│▿┤[${behind_count}](regular white)│](italic bright-magenta)"
+untracked = "[◌◦](italic bright-yellow)"
+stashed = "[◃◈](italic white)"
+modified = "[●◦](italic yellow)"
+staged = "[▪┤[$count](bold white)│](italic bright-cyan)"
+renamed = "[◎◦](italic bright-blue)"
+deleted = "[✕](italic red)"
+
+[hostname]
+ssh_only = false
+format = " @ [$hostname](red) "
+trim_at = ".companyname.com"
+disabled = false
+
+[username]
+style_user = "white"
+style_root = "black bold"
+format = "[$user]($style)"
+disabled = false
+show_always = true
+
+[battery]
+full_symbol = "🔋 "
+charging_symbol = "⚡️ "
+discharging_symbol = "💀 "
+
+[[battery.display]]
+threshold = 30
+style = "bold red"
+
+[[battery.display]]
+threshold = 50
+style = "bold yellow"
+discharging_symbol = " "
+
+[cmd_duration]
+format = "[<- $duration ](italic white)"
+
+[nodejs]
+format = " [node](italic) [◫ ($version)](bold bright-green)"
+version_format = "${raw}"
+detect_files = ["package-lock.json", "yarn.lock"]
+detect_folders = ["node_modules"]
+detect_extensions = []
+
+[python]
+format = "[${symbol}${version}]($style)"
+symbol = "[⌉](bold bright-blue)⌊ "
+version_format = "${raw}"
+style = "bold bright-yellow"
+
+[rust]
+format = "[$symbol$version]($style)"
+symbol = " "
+version_format = "${raw}"
+style = "bold red"
+
+[c]
+symbol = " "
+format = " [$symbol($version(-$name))]($style)"
+
+[cpp]
+symbol = " "
+format = " [$symbol($version(-$name))]($style)"
+
+[golang]
+symbol = " "
+format = "[$symbol($version )]($style)"
+
+[status]
+symbol = ''
+success_symbol = ''
+success_style = 'green'
+failure_style = 'bold red'
+format = '[\[$symbol$common_meaning$signal_name$maybe_int\]]($style) '
+map_symbol = true
+disabled = false
+

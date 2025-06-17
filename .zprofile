@@ -18,3 +18,6 @@ export ZDOTDIR="$XDG_CONFIG_HOME/zsh"
 
 # add scripts to path
 export PATH="$XDG_CONFIG_HOME/scripts:$PATH"
+
+# additional env vars for various programs
+

@@ -41,3 +41,6 @@ bindkey "^H" backward-kill-word
 bindkey "^J" history-search-forward
 bindkey "^K" history-search-backward
 bindkey '^R' fzf-history-widget
+
+# start starship
+eval "$(starship init zsh)"
