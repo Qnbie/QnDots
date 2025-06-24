@@ -1,4 +1,4 @@
-#files: 1020	version: 5.9
+#files: 1021	version: 5.9
 
 _comps=(
 '-' '_precommand'
@@ -1474,6 +1474,7 @@ _comps=(
 'todo' '_devtodo'
 'todo.sh' '_todo.sh'
 'toilet' '_toilet'
+'_toolbox' '_toolbox'
 'toolbox' '_toolbox'
 'top' '_top'
 'totdconfig' '_totd'
