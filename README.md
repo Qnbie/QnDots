@@ -13,7 +13,8 @@ Minimal, personal dotfiles powered by:
 ## ⚙️ Setup
 
 ```bash
-stow .config .zprofile
+# Set up everything
+stow .
 ```
 
 ---
