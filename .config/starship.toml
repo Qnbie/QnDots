@@ -9,8 +9,6 @@ format = """
 
 right_format = """
 $cmd_duration$status\
-$c\
-$cpp\
 $cmake\
 $dotnet\
 $golang\
@@ -91,14 +89,6 @@ format = "[$symbol$version]($style)"
 symbol = " "
 version_format = "${raw}"
 style = "bold red"
-
-[c]
-symbol = " "
-format = " [$symbol($version(-$name))]($style)"
-
-[cpp]
-symbol = " "
-format = " [$symbol($version(-$name))]($style)"
 
 [golang]
 symbol = " "
