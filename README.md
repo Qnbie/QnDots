@@ -7,6 +7,8 @@ Minimal, personal dotfiles powered by:
 - `neovim` text editor
 - `kitty` terminal
 - `starship` prompt
+- fzf
+- bat
 
 ---
 
