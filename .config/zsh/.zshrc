@@ -1,8 +1,8 @@
 # main zsh config
 
 # global vars and aliases
-[ -f "$XDG_CONFIG_HOME/shell/alias" ] && source "$XDG_CONFIG_HOME/shell/alias"
-[ -f "$XDG_CONFIG_HOME/shell/vars" ] && source "$XDG_CONFIG_HOME/shell/vars"
+[ -f "$XDG_CONFIG_HOME/zsh/alias" ] && source "$XDG_CONFIG_HOME/zsh/alias"
+[ -f "$XDG_CONFIG_HOME/zsh/vars" ] && source "$XDG_CONFIG_HOME/zsh/vars"
 
 # load moduls
 zmodload zsh/complist
@@ -44,3 +44,7 @@ bindkey '^R' fzf-history-widget
 
 # start starship
 eval "$(starship init zsh)"
+
+# fzf setup
+source <(fzf --zsh) # allow for fzf history widget
+
