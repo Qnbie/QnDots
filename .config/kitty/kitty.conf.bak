@@ -1,4 +1,39 @@
-shell /usr/bin/zsh
+#  shell /usr/bin/bash
 
 kitty_mod ctrl+shift
+
+
+
+# BEGIN_KITTY_THEME
+# Monokai Pro
+include current-theme.conf
+# END_KITTY_THEME
+
+# Fonts
+font_family Fira Code Regular
+bold_font Fira Code Regular Bold
+italic_font Fira Code Regular Italic
+bold_italic_font Fira Code Regular Bold Italic
+
+font_size 12
+
+# Transparency & Blure
+background_opacity 0.95
+background_blur 0
+background_tint 0.95
+background_tint_gaps -10
+
+# Tiling Layout
+enabled_layouts tall:bias=50;full_size=1;mirrored=false, *
+
+# Window margin
+window_margin_width 5
+window_border_width 2pt
+
+single_window_maring_width 0
+
+# Bell
+enable_audio_bell no
+visual_bell_duration 0
+# visual_bell_color #d48900
 
