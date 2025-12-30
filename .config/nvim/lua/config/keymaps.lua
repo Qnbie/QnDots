@@ -65,4 +65,13 @@ wk.add({
     mode = "t",
     { "<Esc>", "<C-\\><C-n><CMD>lua require('FTerm').close()<CR>" },
   },
+  {
+    mode = "n",
+    {
+      "<Leader>h", "<Cmd>NvimTmuxNavigateLeft<CR>"
+    },
+    { "<Leader>j", "<Cmd>NvimTmuxNavigateDown<CR>"},
+    {"<Leader>k", "<Cmd>NvimTmuxNavigateUp<CR>"},
+    {"<Leader>l", "<Cmd>NvimTmuxNavigateRight<CR>"},
+  },
 })

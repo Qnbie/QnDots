@@ -9,6 +9,7 @@ Minimal, personal dotfiles powered by:
 - `starship` prompt
 - fzf
 - bat
+- tmux and tmux-tpm
 
 ---
 
