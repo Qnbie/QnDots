@@ -1,5 +1,8 @@
 vim.g.mapleader = " "
 
+-- apply options before eager plugins load
+require("config.options")
+
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not (vim.uv or vim.loop).fs_stat(lazypath) then
   local lazyrepo = "https://github.com/folke/lazy.nvim.git"
@@ -18,7 +21,6 @@ vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup("plugins")
 
-require("config.options")
 require("config.autocmd")
 require("config.keymaps")
 

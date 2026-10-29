@@ -41,7 +41,7 @@ return {
       local chars = { "", "", "" } --adding more chars will still work
       local line_ratio = current_line / total_lines
       local index = math.ceil(line_ratio * #chars)
-      return chars[index] .. " " .. math.floor(line_ratio * 100) .. "%%"
+      return chars[index] .. " " .. math.floor(line_ratio * 100) .. "%"
     end
 
     lualine.setup({
@@ -62,7 +62,7 @@ return {
         lualine_y = { "location" },
         lualine_z = { progress },
       },
-      extensions = { "nvim-tree" },
+      extensions = { "neo-tree" },
     })
   end,
 }

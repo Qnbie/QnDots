@@ -1,50 +1,63 @@
-# main zsh config
+# interactive zsh config
 
-# global vars and aliases
-[ -f "$XDG_CONFIG_HOME/zsh/alias" ] && source "$XDG_CONFIG_HOME/zsh/alias"
-[ -f "$XDG_CONFIG_HOME/zsh/vars" ] && source "$XDG_CONFIG_HOME/zsh/vars"
+# aliases
+[ -f "$ZDOTDIR/alias" ] && source "$ZDOTDIR/alias"
 
-# load moduls
+# modules
 zmodload zsh/complist
-autoload -U compinit && compinit
-autoload -U colors && colors
+autoload -Uz compinit
+mkdir -p "$XDG_CACHE_HOME/zsh"
+compinit -d "$XDG_CACHE_HOME/zsh/zcompdump-$ZSH_VERSION"
 
-# complition config
-zstyle ':completion:*' menu select # tab opens cmp menu
-zstyle ':completion:*' special-dirs true # force . and .. to show in cmp menu
-zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS} ma=0\;33 # colorize cmp menu
-zstyle ':completion:*' file-list true # more detailed list
-zstyle ':completion:*' squeeze-slashes false # explicit disable to allow /*/ expansion
+autoload -Uz colors && colors
 
-# main config
-setopt append_history inc_append_history share_history # better history
-setopt auto_menu menu_complete # autocmp first menu match
-setopt globdots # include dotfiles
-setopt extended_glob # match ~ # ^
-unsetopt prompt_sp # don't autoclean blanklines
-setopt no_case_glob no_case_match # make cmp case insensitive
+# completion
+zstyle ':completion:*' menu select
+zstyle ':completion:*' special-dirs true
+[[ -n "$LS_COLORS" ]] && zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
+zstyle ':completion:*' file-list true
+zstyle ':completion:*' squeeze-slashes false
+zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}' # case-insensitive matching
+zstyle ':completion:*' use-cache on
+zstyle ':completion:*' cache-path "$XDG_CACHE_HOME/zsh/zcompcache"
+mkdir -p "$XDG_CACHE_HOME/zsh/zcompcache"
 
-# history config
+# history
 HISTSIZE=1000000
 SAVEHIST=1000000
-HISTFILE="$XDG_CACHE_HOME/zsh_history" # move histfile to cache
-HISTCONTROL=ignoreboth # consecutive duplicates & commands starting with space are not saved
+HISTFILE="$XDG_STATE_HOME/zsh/history"
+mkdir -p "${HISTFILE:h}"
+setopt append_history inc_append_history share_history
+setopt hist_ignore_dups hist_ignore_space hist_reduce_blanks hist_find_no_dups
 
-# basic binds
-bindkey "^a" beginning-of-line
-bindkey "^e" end-of-line
-bindkey "^k" kill-line
-bindkey "^j" backward-word
-bindkey "^k" forward-word
-bindkey "^H" backward-kill-word
-# ctrl J & K for going up and down in prev commands
-bindkey "^J" history-search-forward
-bindkey "^K" history-search-backward
-bindkey '^R' fzf-history-widget
+# options
+setopt auto_menu menu_complete
+setopt extended_glob
+setopt no_case_glob no_case_match
+setopt interactive_comments
+setopt no_beep
+unsetopt prompt_sp
 
-# start starship
-eval "$(starship init zsh)"
+# globbing: dotfiles are opt-in per pattern, e.g. `ls *(D)`.
+# No global `globdots`, so `rm *`, `git add *` and `**/*` stay safe.
 
-# fzf setup
-source <(fzf --zsh) # allow for fzf history widget
+# keybindings (emacs mode)
+bindkey -e
+# up/down: prefix search through history (fish-like)
+bindkey '^[[A' history-search-backward
+bindkey '^[[B' history-search-forward
+bindkey '^[OA' history-search-backward
+bindkey '^[OB' history-search-forward
+# Alt+arrows: word movement
+bindkey '^[[1;3D' backward-word
+bindkey '^[[1;3C' forward-word
 
+# fzf -- loads its own ^R/^T/^C widgets
+if [[ -t 0 ]] && command -v fzf >/dev/null 2>&1; then
+  source <(fzf --zsh)
+fi
+
+# prompt
+if command -v starship >/dev/null 2>&1; then
+  eval "$(starship init zsh)"
+fi

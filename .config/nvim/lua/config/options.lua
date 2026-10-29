@@ -3,25 +3,23 @@ local options = {
   ruler = false,            --disable extra numbering
   showmode = false,         --not needed due to lualine
   showcmd = false,
-  wrap = true,              --toggle bound to leader W
+  wrap = true,              --wrap long lines
   mouse = "a",              --enable mouse
   clipboard = "unnamedplus", --system clipboard integration
-  history = 100,            --command line history
+  history = 10000,          --command line history
   swapfile = false,         --swap just gets in the way, usually
   backup = false,
   undofile = true,          --undos are saved to file
   cursorline = true,        --highlight line
-  ttyfast = true,           --faster scrolling
   smoothscroll = true,
   title = true,             --automatic window titlebar
 
   number = true,            --numbering lines
-  relativenumber = true,    --toggle bound to leader nn
+  relativenumber = true,    --relative line numbers
   numberwidth = 4,
 
   smarttab = true, --indentation stuff
   cindent = true,
-  autoindent = false,
   tabstop = 2, --visual width of tab
   softtabstop = 2,
   shiftwidth = 2,
@@ -29,7 +27,7 @@ local options = {
 
   foldmethod = "expr",
   foldlevel = 99, --disable folding, lower #s enable
-  foldexpr = "nvim_treesitter#foldexpr()",
+  foldexpr = "v:lua.vim.treesitter.foldexpr()",
 
   termguicolors = true,
 

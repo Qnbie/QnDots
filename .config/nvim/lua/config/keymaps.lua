@@ -1,77 +1,76 @@
 local wk = require("which-key")
 local telescope = require("telescope.builtin")
 local dap = require("dap")
+local fterm = require("FTerm")
 
 wk.add({
-  {
-    -- LSP Stuff
-    { "<Leader>k",  group = "LSP stuff" },
-    { "<Leader>kh", vim.lsp.buf.hover,                            desc = "Hover buffer" },
-    { "<Leader>kd", vim.lsp.buf.definition,                       desc = "Go to definition" },
-    { "<Leader>ka", vim.lsp.buf.code_action,                      desc = "Code action" },
-    { "<Leader>kR", vim.lsp.buf.rename,                           desc = "Rename all reference" },
-    { "<Leader>kr", vim.lsp.buf.references,                       desc = "List all references" },
-    { "<Leader>kf", vim.lsp.buf.format,                           desc = "Format current buffer" },
+  -- LSP
+  { "<Leader>k",  group = "LSP stuff" },
+  { "<Leader>kh", vim.lsp.buf.hover,                                   desc = "Hover" },
+  { "<Leader>kd", vim.lsp.buf.definition,                              desc = "Go to definition" },
+  { "<Leader>ka", vim.lsp.buf.code_action,                             desc = "Code action" },
+  { "<Leader>kR", vim.lsp.buf.rename,                                  desc = "Rename" },
+  { "<Leader>kr", vim.lsp.buf.references,                              desc = "References" },
+  { "<Leader>kf", function() vim.lsp.buf.format({ async = true }) end, desc = "Format buffer" },
+  { "<Leader>ke", vim.diagnostic.open_float,                           desc = "Diagnostic float" },
 
-    -- diagnostics
-    { "<Leader>kd", vim.diagnostic.show,                          desc = "Show diagnostics" },
+  -- Find
+  { "<Leader>f",  group = "Find" },
+  { "<Leader>ff", telescope.find_files,                                desc = "Find file" },
+  { "<Leader>fg", telescope.live_grep,                                 desc = "Live grep" },
 
-    -- Which Key
-    --{"<Leader>?", wk.show({ global = false }),desc = "Buffer Local Keymaps (which-key)",},
+  -- File tree
+  { "<leader>n",  "<Cmd>Neotree filesystem reveal left<CR>",            desc = "Reveal file tree" },
+  { "<leader>N",  "<Cmd>Neotree filesystem reveal left toggle<CR>",      desc = "Toggle file tree" },
 
-    -- Telescope
-    { "<Leader>f",  group = "Find" },
-    { "<Leader>ff", telescope.find_files,                         desc = "Find file" },
-    { "<Leader>fg", telescope.live_grep,                          desc = "Live grep" },
+  -- Debugger (leader variants alongside F-keys)
+  { "<Leader>d",  group = "Debugging" },
+  { "<Leader>db", dap.toggle_breakpoint,                               desc = "Toggle breakpoint" },
+  { "<Leader>dc", dap.continue,                                        desc = "Continue" },
+  { "<Leader>dx", dap.step_over,                                       desc = "Step over" },
+  { "<Leader>dz", dap.step_into,                                       desc = "Step into" },
+  { "<Leader>dv", dap.step_out,                                        desc = "Step out" },
 
-    -- Neotree
-    { "<leader>n",  ":Neotree filesystem reveal left<CR>",        desc = "Go to file tree" },
-    { "<leader>N",  ":Neotree filesystem reveal left toggle<CR>", desc = "Toggle file tree" },
+  -- LazyGit
+  { "<leader>g",  "<Cmd>LazyGit<cr>",                                  desc = "LazyGit" },
 
-    -- Debugger
-    { "<Leader>d",  group = "Debugging" },
-    { "<Leader>db", dap.toggle_breakpoint,                        desc = "Toggle breakpoint" },
-    { "<Leader>dc", dap.continue,                                 desc = "Continue in debug" },
-    { "<Leader>dx", dap.step_over,                                desc = "Step over" },
-    { "<Leader>dz", dap.step_into,                                desc = "Step into" },
-    { "<Leader>dv", dap.step_out,                                 desc = "Step out" },
+  -- Terminal
+  { "<Leader>t",  function() fterm.toggle() end,                        desc = "Toggle terminal" },
 
-    -- LazyGit
-    { "<leader>g",  "<cmd>LazyGit<cr>",                           desc = "LazyGit" },
+  -- Buffers
+  { "<Leader>b",  group = "Buffers" },
+  { "<Leader>bq", "<Cmd>BufferClose<cr>",                              desc = "Close buffer" },
+  { "<Leader>bQ", "<Cmd>BufferClose!<cr>",                             desc = "Force close buffer" },
+  { "<Leader>bU", "<Cmd>bufdo bd<cr>",                                 desc = "Close all buffers" },
+  { "<Leader>bv", "<Cmd>vsplit<CR><Cmd>bnext<CR>",                     desc = "Vertical split next buffer" },
 
-    -- Ftrem
-    { "<Leader>t",  "<cmd>lua require('FTerm').toggle()<cr>",     desc = "Toggle terminal" },
+  { "<A-]>",      "<Cmd>bnext<cr>",                                    desc = "Next buffer" },
+  { "<A-[>",      "<Cmd>bprevious<cr>",                                desc = "Previous buffer" },
+  { "<A-1>",      "<Cmd>BufferGoto 1<CR>",                             hidden = true },
+  { "<A-2>",      "<Cmd>BufferGoto 2<CR>",                             hidden = true },
+  { "<A-3>",      "<Cmd>BufferGoto 3<CR>",                             hidden = true },
+  { "<A-4>",      "<Cmd>BufferGoto 4<CR>",                             hidden = true },
+  { "<A-5>",      "<Cmd>BufferGoto 5<CR>",                             hidden = true },
+  { "<A-6>",      "<Cmd>BufferGoto 6<CR>",                             hidden = true },
+  { "<A-7>",      "<Cmd>BufferGoto 7<CR>",                             hidden = true },
+  { "<A-8>",      "<Cmd>BufferGoto 8<CR>",                             hidden = true },
+  { "<A-9>",      "<Cmd>BufferGoto 9<CR>",                             hidden = true },
+  { "<A-0>",      "<Cmd>BufferLast<CR>",                               hidden = true },
 
-    -- BarBar/Buffers
-    { "<Leader>b",  group = "Buffers" },
-    { "<Leader>bq", ":BufferClose<cr>",                           desc = "Close Buffer" },
-    { "<Leader>bQ", ":BufferClose!<cr>",                          desc = "Force Close Buffer" },
-    { "<Leader>bU", "::bufdo bd<CR>",                             desc = "Close All Buffer" },
-    { "<Leader>bv", ":vsplit<CR>:bnext<CR>",                      desc = "Verstical Split New Buffer" },
-
-    { "<AS-]>",     ":bnext<cr>",                                 desc = "Next buffer" },
-    { "<AS-[>",     ":bprevious<cr>",                             desc = "Previous buffer" },
-    { "<AS-1>",     "<Cmd>BufferGoto 1<CR>" },
-    { "<AS-2>",     "<Cmd>BufferGoto 2<CR>" },
-    { "<AS-3>",     "<Cmd>BufferGoto 3<CR>" },
-    { "<AS-4>",     "<Cmd>BufferGoto 4<CR>" },
-    { "<AS-5>",     "<Cmd>BufferGoto 5<CR>" },
-    { "<AS-6>",     "<Cmd>BufferGoto 6<CR>" },
-    { "<AS-7>",     "<Cmd>BufferGoto 7<CR>" },
-    { "<AS-8>",     "<Cmd>BufferGoto 8<CR>" },
-    { "<AS-9>",     "<Cmd>BufferGoto 9<CR>" },
-  },
-  {
-    mode = "t",
-    { "<Esc>", "<C-\\><C-n><CMD>lua require('FTerm').close()<CR>" },
-  },
-  {
-    mode = "n",
-    {
-      "<Leader>h", "<Cmd>NvimTmuxNavigateLeft<CR>"
-    },
-    { "<Leader>j", "<Cmd>NvimTmuxNavigateDown<CR>"},
-    {"<Leader>k", "<Cmd>NvimTmuxNavigateUp<CR>"},
-    {"<Leader>l", "<Cmd>NvimTmuxNavigateRight<CR>"},
-  },
+  -- Git hunks
+  { "<Leader>h",  group = "Hunk" },
+  { "<Leader>hs", function() require("gitsigns").stage_hunk() end,      desc = "Stage hunk" },
+  { "<Leader>hr", function() require("gitsigns").reset_hunk() end,      desc = "Reset hunk" },
+  { "<Leader>hp", function() require("gitsigns").preview_hunk() end,    desc = "Preview hunk" },
+  { "<Leader>hn", function() require("gitsigns").nav_hunk("next") end,  desc = "Next hunk" },
+  { "<Leader>hN", function() require("gitsigns").nav_hunk("prev") end,  desc = "Prev hunk" },
 })
+
+-- nvim <-> tmux split navigation (Alt+hjkl)
+for _, nav in ipairs({ { "h", "Left" }, { "j", "Down" }, { "k", "Up" }, { "l", "Right" } }) do
+  local key, direction = nav[1], nav[2]
+  vim.keymap.set({ "n", "v" }, "<A-" .. key .. ">", "<Cmd>NvimTmuxNavigate" .. direction .. "<CR>")
+end
+
+-- exit terminal insert mode without closing the terminal
+vim.keymap.set("t", "<Esc>", "<C-\\><C-n>")
